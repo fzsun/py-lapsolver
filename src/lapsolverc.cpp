@@ -27,6 +27,10 @@ rids : array
     Array of row ids of matching pairings
 cids : array
     Array of column ids of matching pairings
+u    : array
+    Array of dual variable for each row
+v    : array
+    Array of dual variable for each column
 
 )pbdoc";
 

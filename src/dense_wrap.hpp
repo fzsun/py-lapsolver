@@ -55,7 +55,8 @@ py::tuple solve_dense_wrap(py::array_t<T, ExtraFlags> input1) {
 
 
     std::vector<int> Lmate, Rmate;
-    solve_dense(costs, Lmate, Rmate);
+    std::vector<T> u, v;
+    solve_dense(costs, Lmate, Rmate, u, v);
 
     std::vector<int> rowids, colids;
 
@@ -69,5 +70,6 @@ py::tuple solve_dense_wrap(py::array_t<T, ExtraFlags> input1) {
 		}
     }
 
-    return py::make_tuple(py::array(rowids.size(), rowids.data()), py::array(colids.size(), colids.data()));
+    return py::make_tuple(py::array(rowids.size(), rowids.data()), py::array(colids.size(), colids.data()), 
+        py::array(u.size(), u.data()), py::array(v.size(), v.data()));
 }

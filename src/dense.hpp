@@ -20,7 +20,7 @@
 	Adapted by https://github.com/cheind
 */
 template<class T>
-void solve_dense(const std::vector< std::vector<T> > &cost, std::vector<int> &Lmate, std::vector<int> &Rmate)
+void solve_dense(const std::vector< std::vector<T> > &cost, std::vector<int> &Lmate, std::vector<int> &Rmate, std::vector<T> &u, std::vector<T> &v)
 {
 	
 	//////////////////////////////////////////////////////////////////////
@@ -34,6 +34,8 @@ void solve_dense(const std::vector< std::vector<T> > &cost, std::vector<int> &Lm
 	//   cost[i][j] = cost for pairing left node i with right node j
 	//   Lmate[i] = index of right node that left node i pairs with
 	//   Rmate[j] = index of left node that right node j pairs with
+	//   u[i] = dual variable of row i
+	//   v[j] = dual variable of column j
 	//
 	// The values in cost[i][j] may be positive or negative.  To perform
 	// maximization, simply negate the cost[][] matrix.
@@ -47,8 +49,8 @@ void solve_dense(const std::vector< std::vector<T> > &cost, std::vector<int> &Lm
 	const int n = int(cost.size());
 
 	// construct dual feasible solution
-	VD u(n);
-	VD v(n);
+	u = VD(n);
+	v = VD(n);
 	for (int i = 0; i < n; i++) {
 		u[i] = cost[i][0];
 		for (int j = 1; j < n; j++) u[i] = std::min(u[i], cost[i][j]);
